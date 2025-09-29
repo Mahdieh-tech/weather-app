@@ -3,7 +3,7 @@ const getLoc = async () => {
     const url = 'http://ip-api.com/json/?fields=status,country,city,lat,lon,timezone';
 
     const response = await fetch(url);
-    const data = response.json();
+    const data = await response.json(); // FIXED: added await
 
     return data;
 }
@@ -14,7 +14,7 @@ const getWeather = async (lat, lon) => {
     url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api}`;
 
     const response = await fetch(url);
-    const data = response.json();
+    const data = await response.json(); // FIXED: added await
 
     return data;
 }
@@ -23,44 +23,47 @@ function getIcon(weMain){
     let icon;
     switch (weMain) {
         case 'Thunderstorm':
-            icon = `${wi-day-thunderstorm}.svg`;
+            icon = 'sun.jpeg';
             break;
         case 'Drizzle':
-            icon = `${weMain}.svg`;
+            icon = 'sun.jpeg';
             break;
         case 'Rain':
-            icon = `${weMain}.svg`;
+            icon = 'sun.jpeg';
             break;
         case 'Snow':
-            icon = `${weMain}.svg`;
+            icon = 'sun.jpeg';
             break;
         case 'Clear':
-            const DayOrNigh = getDayOrNight();
-            icon = `${weMain}-${DayOrNigh}.svg`;
+            const DayOrNight = getDayOrNight();
+            icon = 'sun.jpeg';
             break;
         case 'Clouds':
-            icon = `${weMain}.svg`;
+            icon = 'sun.jpeg';
             break;
         case 'Atmosphere':
-            icon = `${weMain}.png`;
+            icon = 'sun.jpeg';
+            break;
+        default:
+            icon = 'sun.jpeg';
             break;
     }
     return icon;
 }
 
 function getDayOrNight() {
-    let DayOrNigh;
+    let DayOrNight;
     var d = new Date();
 
     const hour = d.getHours();
 
     if (hour >= 6 && hour <= 19) {
-        DayOrNigh = 'Day';
+        DayOrNight = 'Day';
     } else {
-        DayOrNigh = 'Night';
+        DayOrNight = 'Night';
     }
 
-    return DayOrNigh;
+    return DayOrNight;
 }
 
 function getTemp(weTemp){
